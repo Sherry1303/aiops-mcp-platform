@@ -75,5 +75,4 @@ VyOS 的操作模式与普通 Linux 有本质区别。为了实现对真实路�
 - 示例设备清单见 `mcp-vyos/inventory.json`（实验网段 `192.168.56.0/24`：核心路由 R1 + 交换机 SW1 / SW2）
 - 密钥策略：Streamlit 用 `.streamlit/secrets.toml`、FastAPI 用 `.env`，二者均已写入 `.gitignore`，**不会进仓库**
 - 界面截图见 `screenshots/`（2026-10-02 实验环境实拍，采集方式与数据来源见 `screenshots/README.md`）
-- 第三周进展报告（Word / Markdown / 生成脚本 / 配图）属过程性材料，**不纳入本仓库**
 
