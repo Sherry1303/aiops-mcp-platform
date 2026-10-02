@@ -1,7 +1,29 @@
-<img width="2483" height="1326" alt="image" src="https://github.com/user-attachments/assets/1c2ac132-d57e-4945-8541-316564f392be" />
-<img width="2498" height="1332" alt="image" src="https://github.com/user-attachments/assets/6c8b0100-99f2-423b-942d-b2eeeb3d2bff" />
-<img width="2494" height="1332" alt="image" src="https://github.com/user-attachments/assets/07791b39-a7b0-48ee-ba02-912920b67f38" />
-<img width="2488" height="1322" alt="image" src="https://github.com/user-attachments/assets/6397fbff-1159-414e-b7e2-2f974419e91d" />
+## 界面预览（2026-10-02 实拍）
+
+> 下面 7 张图来自实验环境的**真实运行实例**：Vue3 控制台 → FastAPI → MCP（stdio）→ SSH → VyOS R1，
+> 图中数据均为实测（含 SW1 / SW2 离线的告警态与真实 DeepSeek 调用结果），不含演示数据；采集方式见 [`screenshots/README.md`](screenshots/README.md)。
+
+**01 · 控制台总览** —— 设备清单与在线状态、关键指标卡、拓扑、「AI 运维对话」、接口流量曲线（两次采样差值换算，实测 2.6 Mbps 上下）
+<img width="1500" alt="控制台总览" src="screenshots/01-console-overview.png" />
+
+**02 · AI 运维对话** —— 中文提问「查一下 R1 的 eth0 流量」，DeepSeek 选工具并生成结论与运维建议（耗时 8.2s）
+<img width="1500" alt="AI 运维对话" src="screenshots/02-ai-chat.png" />
+
+**03 · MCP 工具调用** —— 对话里直接展开工具调用与入参（`monitor_traffic` / `SUCCESS` / `{"device_name":"R1","interface":"eth0"}`）
+<img width="1500" alt="MCP 工具调用" src="screenshots/03-ai-toolcall.png" />
+
+**04 · 设备详情抽屉** —— 版本、接口状态、CPU / 内存 / 运行时长，以及可展开的 **MCP 原始命令输出**（version / interface / cpu / memory）
+<img width="1500" alt="设备详情抽屉" src="screenshots/04-device-detail.png" />
+
+**05 · 审计日志与告警中心** —— SQLite 分页审计（chat / monitor_traffic 全程留痕、支持 CSV 导出）+ P0/P1/P2 告警与确认
+<img width="1500" alt="审计日志与告警中心" src="screenshots/05-audit-alerts.png" />
+
+**06 · 关于：系统架构与接口清单** —— 六层架构（展示 / 接口 / 智能 / 协议 / 工具 / 设备）+ REST 接口清单 + 「查一下 R1 的 eth0 流量」全链路
+<img width="1500" alt="关于" src="screenshots/06-about.png" />
+
+**07 · 两横整屏菜单** —— ⌘/Ctrl+K 呼出，数字 1 / 2 / 3 直达页面、Esc 关闭
+<img width="1500" alt="两横整屏菜单" src="screenshots/07-menu.png" />
+
 ## 受管环境与真实设备适配（深度解析）
 
 本系统并非只停留在“发送 SSH 命令”的浅层，而是针对网络操作系统的底层特性进行了深度适配。实验环境以 **VyOS（开源企业级路由操作系统）** 作为核心受管节点。
@@ -52,5 +74,6 @@ VyOS 的操作模式与普通 Linux 有本质区别。为了实现对真实路�
 ### 说明
 - 示例设备清单见 `mcp-vyos/inventory.json`（实验网段 `192.168.56.0/24`：核心路由 R1 + 交换机 SW1 / SW2）
 - 密钥策略：Streamlit 用 `.streamlit/secrets.toml`、FastAPI 用 `.env`，二者均已写入 `.gitignore`，**不会进仓库**
+- 界面截图见 `screenshots/`（2026-10-02 实验环境实拍，采集方式与数据来源见 `screenshots/README.md`）
 - 第三周进展报告（Word / Markdown / 生成脚本 / 配图）属过程性材料，**不纳入本仓库**
 
