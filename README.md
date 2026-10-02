@@ -18,3 +18,39 @@ VyOS 的操作模式与普通 Linux 有本质区别。为了实现对真实路�
 - 若探测为 **VyOS**，则按上述原生流程执行；
 - 若探测为 **Linux 容器**（如 Docker 运行的精简版 Ubuntu），则自动将 VyOS 命令翻译为 Linux 原生指令（例如将 `show interfaces ethernet eth0` 翻译为 `ip -s link show eth0` 或读取 `/proc/net/dev`）。
 - 这种设计实现了“**一次开发，多厂商纳管**”的架构目标。
+
+---
+
+## 仓库结构（2026-10 更新）
+
+本仓库现在是**三端一体的完整平台**，按「展示层 → 接口层 → 智能层 → 协议层 → 工具层 → 设备层」拆分：
+
+| 目录 | 角色 | 技术栈 |
+| --- | --- | --- |
+| `mcp-vyos/` | 工具层 + 协议层（MCP Server）与 Streamlit 大屏 | Python · FastMCP(stdio) · Paramiko(SSH) · Streamlit + Plotly |
+| `aiops-api/` | 接口层 + 智能层 | FastAPI + Uvicorn · DeepSeek Function Calling · MCP Client |
+| `aiops-frontend/` | 展示层（Vue3 控制台 + Live2D 看板娘） | Vue 3 + Vite 6 + Tailwind CSS 4 + ECharts · pixi-live2d-display |
+
+### 1. mcp-vyos —— MCP 工具服务 + Streamlit 大屏
+- `server.py`：FastMCP 暴露 4 个工具 `get_topology` / `query_device` / `monitor_traffic` / `configure_interface`
+- `app.py` + `ui_theme.py`：Streamlit 控制台（浅色 Glass 设计系统、Plotly 拓扑、P0/P1/P2 告警中心、SQLite 审计）
+- `_ui_smoke_test.py`：UI 回归测试，`python _ui_smoke_test.py --with-devices` 会走真实 MCP + SSH 全链路
+
+### 2. aiops-api —— REST 接口 + AI 编排（新增）
+- `main.py`：`/api/devices`、`/api/stats`、`/api/chat`、`/api/audit-logs`、`/api/alerts`、`/api/traffic/...`、`/api/mcp/health`
+- `agent.py`：中文意图 -> 工具选择与参数抽取 -> DeepSeek 生成中文结论
+- `mcp_client.py`：MCP Client（stdio 子进程，JSON-RPC 握手 + 工具调用 + 超时兜底）
+- 启动：`pip install -r requirements.txt` 后 `uvicorn main:app --reload --port 8000`；密钥放在 `.env`（模板见 `.env.example`）
+
+### 3. aiops-frontend —— Vue3 智能运维控制台（新增，界面已重做）
+- 设计语言：**和纸白 + 医用蓝**（大留白 / 纯白纸片卡片 / 衬线大标题 Noto Serif SC + Inter 正文 / 20px 圆角 / 立体层叠指标卡）
+- 页面：控制台（拓扑 + 流量 + AI 对话）、审计日志（告警中心、CSV 导出）、关于（架构分层与接口清单）
+- 交互：**两横菜单**（⌘/Ctrl+K 呼出、数字 1/2/3 直达、Esc 关闭）、设备搜索与状态筛选、新增告警浮层、时钟与刷新倒计时
+- Live2D 陪伴型看板娘：Cubism 4 模型 **Mao（小桃）**，资源自托管于 `public/live2d/`；支持视线跟随、悬停/点击台词气泡、角色铭牌；30fps 限帧 + `pointer-events: none`，不阻塞页面交互
+- 启动：`npm install` 后 `npm run dev`；`npm run build` 产出 `dist/`
+
+### 说明
+- 示例设备清单见 `mcp-vyos/inventory.json`（实验网段 `192.168.56.0/24`：核心路由 R1 + 交换机 SW1 / SW2）
+- 密钥策略：Streamlit 用 `.streamlit/secrets.toml`、FastAPI 用 `.env`，二者均已写入 `.gitignore`，**不会进仓库**
+- 第三周进展报告（Word / Markdown / 生成脚本 / 配图）属过程性材料，**不纳入本仓库**
+

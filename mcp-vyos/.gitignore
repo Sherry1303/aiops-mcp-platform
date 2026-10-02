@@ -1,0 +1,14 @@
+# MCP 工具层（VyOS / 通用 Linux 驱动 + 审计）
+__pycache__/
+*.py[cod]
+*.db
+*.log
+.env
+.streamlit/secrets.toml
+_smoke_report.txt
+_app_dark_backup.py
+
+# 第三周报告相关产物不进版本库
+docs/
+*.doc
+*.docx

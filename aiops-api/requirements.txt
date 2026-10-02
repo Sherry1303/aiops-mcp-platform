@@ -1,0 +1,8 @@
+# aiops-api —— FastAPI 后端运行依赖
+# 说明：mcp / openai / paramiko 用于对接现有 MCP Server 与 DeepSeek
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+mcp>=1.2.0
+paramiko>=3.4.0
+openai>=1.40.0
+pydantic>=2.7.0

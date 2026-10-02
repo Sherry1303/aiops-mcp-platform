@@ -1,0 +1,33 @@
+# ==================== 全局忽略 ====================
+# 密钥 / 凭据：绝不能进版本库
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Python
+__pycache__/
+*.py[cod]
+*.db
+*.db-journal
+
+# 运行日志与临时产物
+*.log
+_selfcheck_full.txt
+_smoke_report.txt
+_app_dark_backup.py
+
+# 报告类产物：第三周进展报告（Word / md / 生成脚本 / 配图）不纳入版本库
+*.doc
+*.docx
+docs/
+
+# 前端
+node_modules/
+dist/
+dist-ssr/
+.vite/
+
+# 系统杂项
+.DS_Store
+Thumbs.db

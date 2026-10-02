@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- 单一浅色主题：和纸白画布（日式极简）。原 plan-a 深色科技风已移除，见 src/style.css 顶部说明。 -->
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fbfaf7" />
+    <title>AIOps 智能运维控制台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Noto Serif SC 只用于大标题/关键数字（display 类），正文仍用 Inter，保证中文可读性与加载体积 -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@600;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- 站点图标：蓝底圆角 + 一双眼睛和微笑（跟看板娘同一套「萌」语言） -->
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='10' fill='%232f6fed'/%3E%3Cpath d='M10 20c1.6 2.2 3.9 3.2 6 3.2s4.4-1 6-3.2' stroke='%23fff' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='11.6' cy='12.4' r='2.7' fill='%23fff'/%3E%3Ccircle cx='20.4' cy='12.4' r='2.7' fill='%23fff'/%3E%3Ccircle cx='11.6' cy='13.2' r='1.2' fill='%231b2430'/%3E%3Ccircle cx='20.4' cy='13.2' r='1.2' fill='%231b2430'/%3E%3C/svg%3E"
+    />
+    <!-- Live2D Cubism 4 Core（自托管于 public/live2d/core/，看板娘运行必需）
+         用 defer：不阻塞解析与首屏渲染，且一定早于 src/components/Live2DCompanion.vue 的动态 import -->
+    <script defer src="/live2d/core/live2dcubismcore.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

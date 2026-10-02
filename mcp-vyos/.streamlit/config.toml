@@ -1,0 +1,23 @@
+# AIOps 控制台主题：浅色 Glass（与 app.py 注入的 CSS 令牌一一对应）
+#   画布 linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%)
+#   卡片 .metric-card rgba(255,255,255,.8) / 1px solid rgba(255,255,255,.5) / 圆角 16px
+#   在线节点 #4ECDC4 / 离线节点 #FF6B6B
+# borderColor / baseRadius / buttonRadius 是 Streamlit 原生皮肤兜底，
+# 即使自定义 CSS 未命中，卡片与按钮也保持同一套圆角与描边。
+[theme]
+base = "light"
+primaryColor = "#0d9488"
+backgroundColor = "#f5f7fa"
+secondaryBackgroundColor = "#ffffff"
+textColor = "#1f2937"
+borderColor = "#e3e9f0"
+baseRadius = "16px"
+buttonRadius = "10px"
+codeFont = "JetBrains Mono, Cascadia Code, Consolas, monospace"
+
+[client]
+toolbarMode = "minimal"
+
+[server]
+headless = false
+

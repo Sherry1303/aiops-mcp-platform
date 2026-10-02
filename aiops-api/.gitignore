@@ -1,0 +1,7 @@
+# FastAPI 接口层
+__pycache__/
+*.py[cod]
+*.log
+.env
+*.db
+_*.txt
